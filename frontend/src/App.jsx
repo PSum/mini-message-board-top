@@ -10,13 +10,13 @@ function App() {
 
 function Chat() {
   // TASK: Understand this code
-  const [chat, setChat] = useState([]);
+  const [chats, setChats] = useState([]);
   const [loading, setLoading] = useState(true);  // Track loading state
 
   const getChat = async () => {
     try {
       const response = await axios.get('http://localhost:3000/');
-      setChat(response.data);
+      setChats(response.data);
       setLoading(false);  // Stop loading when data is fetched
     } catch (error) {
       console.error('Error fetching the chat data:', error);
@@ -28,16 +28,27 @@ function Chat() {
     getChat();
   }, []);
 
+    const chatEntries = chats.map(chat => {
+      return (
+      <div key={chat.id}>
+        <div>{chat.username}</div>
+        <div>{ chat.text }</div>
+      </div>
+      )
+    })
+    console.log(chatEntries);
+
   return (
     <div>
       {/* Show loading state while waiting for data */}
-      {loading ? (
+      {loading ? ( // while loading is true, show "Loading chat..."
         <p>Loading chat...</p>
-      ) : (
-        // If chat array is not empty, display the first message, else show a no data message
-        chat.length > 0 ? (
-          <p>First chat message: {chat[1].text}</p>
-        ) : (
+      ) : ( // If loading is false:
+        chats.length > 0 ? ( // if chat array has an entry:
+          <div>
+            {chatEntries}
+          </div>
+        ) : ( // If chat array is still empty after loading:
           <p>No chat messages available.</p>
         )
       )}
@@ -48,21 +59,13 @@ function Chat() {
 
   function Header (){
     return(
-      <div>Hello</div>
+      <h1>Mini-Message-Board</h1>
     )
   }
-
-function Form (){
-  return(
-    <div>second div</div>
-  )
-}
-
 
   return (
     <>
     <Header></Header>
-    <Form></Form>
     <Chat></Chat>
     </>
   )
