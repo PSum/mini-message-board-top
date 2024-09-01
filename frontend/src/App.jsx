@@ -30,9 +30,9 @@ function Chat() {
 
     const chatEntries = chats.map(chat => {
       return (
-      <div key={chat.id}>
-        <div>{chat.username}</div>
-        <div>{ chat.text }</div>
+      <div key={chat.id} className='entry'>
+        <div className='box'>{chat.username}:</div>
+        <div className='box'>{ chat.text }</div>
       </div>
       )
     })
@@ -45,7 +45,7 @@ function Chat() {
         <p>Loading chat...</p>
       ) : ( // If loading is false:
         chats.length > 0 ? ( // if chat array has an entry:
-          <div>
+          <div className='chatbox'>
             {chatEntries}
           </div>
         ) : ( // If chat array is still empty after loading:
@@ -59,7 +59,9 @@ function Chat() {
 
   function Header (){
     return(
-      <h1>Mini-Message-Board</h1>
+    <h1 className="text-3xl font-bold underline">
+      Hello world!
+    </h1>
     )
   }
 
