@@ -65,9 +65,46 @@ function Chat() {
     )
   }
 
+
+function Form() {
+
+  const sendData =async(username, text) => {
+  axios.post('http://localhost:3000/new', {
+      username: username,
+      text: text,
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+  function addEntry(event) {
+    // Prevents the form from submitting the traditional way (reloading the page)
+    event.preventDefault();
+
+    // Extract form data
+    const formData = new FormData(event.target);
+    const username = formData.get('username'); // matches the name attribute
+    const text = formData.get('text');
+    sendData(username, text);
+  }
+
+  return (
+    <form onSubmit={addEntry}>
+      <input type="text" name="username" placeholder="Username" />
+      <input type="text" name="text" placeholder="Text" />
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+
   return (
     <>
     <Header></Header>
+    <Form></Form>
     <Chat></Chat>
     </>
   )
