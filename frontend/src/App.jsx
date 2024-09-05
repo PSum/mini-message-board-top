@@ -4,7 +4,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import axios from 'axios'
-
+const address = 'https://melted-robena-psum-48c79943.koyeb.app/'
 
 function App() {
 
@@ -15,7 +15,7 @@ function Chat() {
 
   const getChat = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/');
+      const response = await axios.get(`${address}`);
       setChats(response.data);
       setLoading(false);  // Stop loading when data is fetched
     } catch (error) {
@@ -69,7 +69,9 @@ function Chat() {
 function Form() {
 
   const sendData =async(username, text) => {
-  axios.post('http://localhost:3000/new', {
+    const formAdress = `${address}/new`
+    console.log(formAdress)
+  axios.post(formAdress, {
       username: username,
       text: text,
     })
