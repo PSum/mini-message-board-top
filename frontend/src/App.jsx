@@ -4,7 +4,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import axios from 'axios'
-const address = 'https://melted-robena-psum-48c79943.koyeb.app/'
+const address = 'https://melted-robena-psum-48c79943.koyeb.app'
 
 function App() {
 
@@ -17,6 +17,7 @@ function Chat() {
     try {
       const response = await axios.get(`${address}`);
       setChats(response.data);
+      console.log(response.data);
       setLoading(false);  // Stop loading when data is fetched
     } catch (error) {
       console.error('Error fetching the chat data:', error);
@@ -69,9 +70,7 @@ function Chat() {
 function Form() {
 
   const sendData =async(username, text) => {
-    const formAdress = `${address}/new`
-    console.log(formAdress)
-  axios.post(formAdress, {
+  axios.post(`${address}/new`, {
       username: username,
       text: text,
     })
